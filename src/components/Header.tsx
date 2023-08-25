@@ -24,7 +24,7 @@ export default function Header({
 
             <TouchableOpacity onPress={pauseGame}>
                 <Ionicons
-                    name={isPaused ? "reload-circle" : "pause-circle"}
+                    name={isPaused ? "play-circle" : "pause-circle"}
                     size={35}
                     color={Colors.primary}
                 />
