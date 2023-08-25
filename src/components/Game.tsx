@@ -129,13 +129,22 @@ export default function Game(): JSX.Element {
         <PanGestureHandler onGestureEvent={handleGesture}>
 
             <SafeAreaView style={styles.container}>
-                <Header isPaused={isPaused} pauseGame={pauseGame} reloadGame={reloadGame} >
+                <Header isPaused={isPaused} pauseGame={pauseGame} reloadGame={reloadGame}>
                     <Text style={styles.score}>{score}</Text>
                 </Header>
-                <View style={styles.boundaries}>
-                    <Snake snake={snake} />
-                    <Food x={food.x} y={food.y} />
-                </View>
+                {isGameOver ? (
+                    <View style={styles.gameOverContainer}>
+                        <Text style={styles.gameOverText}>Game Over</Text>
+                        <Text style={styles.scoreGameOver}>Punteggio: {score}</Text>
+                    </View>
+                ) : (
+                    <>
+                        <View style={styles.boundaries}>
+                            <Snake snake={snake} />
+                            <Food x={food.x} y={food.y} />
+                        </View>
+                    </>
+                )}
             </SafeAreaView>
 
         </PanGestureHandler>
@@ -159,5 +168,20 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: "bold",
         color: Colors.primary,
-    }
+    },
+    scoreGameOver: {
+        fontSize: 22,
+        fontWeight: "bold",
+        color: Colors.tertiary,
+    },
+    gameOverContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    gameOverText: {
+        fontSize: 36,
+        fontWeight: "bold",
+        color: Colors.gameOver,
+    },
 })
