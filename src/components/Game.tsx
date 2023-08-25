@@ -45,13 +45,23 @@ export default function Game(): JSX.Element {
 
         //GameOver
         if (checkGameOver(snakeHead, GAME_BOUNDS)) {
-            setIsGameOver((prev) => !prev);
-            return;
+            // Teleport to the opposite wall
+            if (snakeHead.x < GAME_BOUNDS.xMin) {
+                newHead.x = GAME_BOUNDS.xMax - 1;
+            } else if (snakeHead.x >= GAME_BOUNDS.xMax) {
+                newHead.x = GAME_BOUNDS.xMin;
+            } else if (snakeHead.y < GAME_BOUNDS.yMin) {
+                newHead.y = GAME_BOUNDS.yMax - 1;
+            } else if (snakeHead.y >= GAME_BOUNDS.yMax) {
+                newHead.y = GAME_BOUNDS.yMin;
+            }
         }
 
         // Controllo se la testa del serpente si sovrappone con il corpo
         for (let i = 1; i < snake.length; i++) {
             const segment = snake[i];
+            console.log(segment);
+            
             if (segment.x === newHead.x && segment.y === newHead.y) {
                 setIsGameOver(true);
                 return;
